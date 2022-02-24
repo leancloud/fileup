@@ -14,7 +14,11 @@
   });
 
   async function uploadFile(toUpload): Promise<String> {
-    const uploaded = await new LC.File(toUpload.name, toUpload).save();
+    const uploaded = await new LC.File(toUpload.name, toUpload).save({
+      onprogress: (progress) => {
+        console.log(progress);
+      }
+    });
     return uploaded.get("url");
   }
 
