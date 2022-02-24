@@ -18,7 +18,10 @@ const serverURL = "https://your-custom-domain.example.com";
 
 You can obtain the required information from LeanCloud dashboard (`Settings > AppKey`).
 The domain name in `serverURL` is the first domain in `Settings > AppKey > Domain whitelist > Request domain`.
- 
+
+You probabaly do not want to allow anyone to query all URLs of all the uploaded files.
+Thus you need to configure the `find` permission of files to `0 Role, 0 User` (`Data Storage > Files > Permission > Class permissions`).
+
 ### Install Dependencies
 
 ```sh
