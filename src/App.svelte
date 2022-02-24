@@ -13,10 +13,14 @@
     serverURL,
   });
 
+  let uploadProgress: {
+    [index: string]: number
+  } = {}
+
   async function uploadFile(toUpload): Promise<String> {
     const uploaded = await new LC.File(toUpload.name, toUpload).save({
       onprogress: (progress) => {
-        console.log(progress);
+        uploadProgress[toUpload.name] = progress.percent
       }
     });
     return uploaded.get("url");
@@ -54,7 +58,7 @@
   <h2>Files</h2>
   {#each files as file, i}
     {#await uploadFile(file)}
-      <p>Uploading {file.name} ({file.size} bytes) ...</p>
+      <p>Uploading {file.name} ({file.size} bytes): {uploadProgress[file.name]}% uploaded</p>
     {:then url}
       <p>Uploaded:
         <code>{url ?? ""}</code>
